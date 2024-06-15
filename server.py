@@ -16,5 +16,5 @@ def index():
             result = e.output
 
 def start_server():
-    app.run(host="127.0.0.1", port=7860, debug=True)
+    app.run(host="127.0.0.1", port=7860, debug=False)
     return render_template('index.html', result=result)
