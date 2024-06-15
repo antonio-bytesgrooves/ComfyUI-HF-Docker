@@ -14,8 +14,11 @@ def index():
             result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, text=True)
         except subprocess.CalledProcessError as e:
             result = e.output
-    render_template('index.html', result=result)
+    return render_template('index.html')
 
+if __name__ == '__main__':
+   app.run()
+   
 # host="127.0.0.1"
 # port=7860
 # scheme = "https"
