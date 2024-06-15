@@ -1,5 +1,6 @@
 import os
 import logging
+import subprocess
 
 isFile = False
 
@@ -12,15 +13,16 @@ custom_nodes_path = os.path.join(comfyui_install_path,"custom_nodes")
 comfyui_repo_url = "https://github.com/antonio-bytesgrooves/ComfyUI-SV1.git"
 
 # Check if installed
-sFile = os.path.isfile(comfyui_install_path)
+sFile = os.path.isfile(entry_file_path)
 
 if sFile:
-    print(f'python {comfyui_install_path} --listen 0.0.0.0 --port 7860 --cpu-only')
-    logging.info("ComfyUI installation found. Starting")
+    print("Starting ComfyUI...")
+    subprocess.run(["python", f"{entry_file_path}", "--listen 0.0.0.0 --port 7860 --cpu-only"])
 else:
-    logging.info(f"ComfyUI installation not found. cloning from {comfyui_repo_url}")
-    print(f'git clone {comfyui_repo_url} {comfyui_install_path} && python {entry_file_path}  --listen 0.0.0.0 --port 7860 --cpu-only  \
-          && git clone https://github.com/ltdrdata/ComfyUI-Manager.git {custom_nodes_path} \
-          && git clone https://github.com/antonio-bytesgrooves/Comfy-Terminal.git {custom_nodes_path} \
-          && git clone https://github.com/antonio-bytesgrooves/Chaosaiart-Nodes.git {custom_nodes_path} \
-          && git clone https://github.com/pythongosssss/ComfyUI-Custom-Scripts.git {custom_nodes_path}')
+    print(f"ComfyUI installation not found. cloning from {comfyui_repo_url}")
+    subprocess.run(["git", "clone", f"{comfyui_repo_url} {comfyui_install_path}"])
+    subprocess.run(["git", "clone", "https://github.com/ltdrdata/ComfyUI-Manager.git", f"{custom_nodes_path}"])
+    subprocess.run(["git", "clone", "https://github.com/antonio-bytesgrooves/Comfy-Terminal.git",f"{custom_nodes_path}"])
+    subprocess.run(["git", "clone", "https://github.com/antonio-bytesgrooves/Chaosaiart-Nodes.git",f"{custom_nodes_path}"])
+    subprocess.run(["git", "clone", "https://github.com/pythongosssss/ComfyUI-Custom-Scripts.git",f"{custom_nodes_path}"])
+    subprocess.run(["python", f"{entry_file_path}", "--listen 0.0.0.0 --port 7860 --cpu-only"])
