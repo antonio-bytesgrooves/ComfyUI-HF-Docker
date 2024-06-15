@@ -15,11 +15,11 @@ comfyui_repo_url = "https://github.com/antonio-bytesgrooves/ComfyUI-SV1.git"
 sFile = os.path.isfile(comfyui_install_path)
 
 if sFile:
-    print(f'python {comfyui_install_path} --listen 0.0.0.0 --port 7860')
+    print(f'python {comfyui_install_path} --listen 0.0.0.0 --port 7860 --cpu-only')
     logging.info("ComfyUI installation found. Starting")
 else:
     logging.info(f"ComfyUI installation not found. cloning from {comfyui_repo_url}")
-    print(f'git clone {comfyui_repo_url} {comfyui_install_path} && python {entry_file_path}  --listen 0.0.0.0 --port 7860 \
+    print(f'git clone {comfyui_repo_url} {comfyui_install_path} && python {entry_file_path}  --listen 0.0.0.0 --port 7860 --cpu-only  \
           && git clone https://github.com/ltdrdata/ComfyUI-Manager.git {custom_nodes_path} \
           && git clone https://github.com/antonio-bytesgrooves/Comfy-Terminal.git {custom_nodes_path} \
           && git clone https://github.com/antonio-bytesgrooves/Chaosaiart-Nodes.git {custom_nodes_path} \
