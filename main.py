@@ -1,6 +1,7 @@
 import os
 import logging
 import subprocess
+import server
 
 isFile = False
 
@@ -20,9 +21,9 @@ if sFile:
     subprocess.run(["python", f"{entry_file_path}", "--listen 0.0.0.0 --port 7860 --cpu-only"])
 else:
     print(f"ComfyUI installation not found. cloning from {comfyui_repo_url}")
-    subprocess.run(["git", "clone", f"{comfyui_repo_url} {comfyui_install_path}"])
-    subprocess.run(["git", "clone", "https://github.com/ltdrdata/ComfyUI-Manager.git", f"{custom_nodes_path}"])
-    subprocess.run(["git", "clone", "https://github.com/antonio-bytesgrooves/Comfy-Terminal.git",f"{custom_nodes_path}"])
-    subprocess.run(["git", "clone", "https://github.com/antonio-bytesgrooves/Chaosaiart-Nodes.git",f"{custom_nodes_path}"])
-    subprocess.run(["git", "clone", "https://github.com/pythongosssss/ComfyUI-Custom-Scripts.git",f"{custom_nodes_path}"])
-    subprocess.run(["python", f"{entry_file_path}", "--listen 0.0.0.0 --port 7860 --cpu-only"])
+    server.start_server()
+    
+    # if sFile:
+    #     subprocess.run(["python", f"{entry_file_path}", "--listen 0.0.0.0 --port 7860 --cpu-only"])
+    # else:
+    #     print("App not installed")
