@@ -14,13 +14,14 @@ def index():
             result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, text=True)
         except subprocess.CalledProcessError as e:
             result = e.output
-
-host="127.0.0.1"
-port=7860
-scheme = "https"
-
-def start_server():
-    app.run(host, port, debug=False)
     render_template('index.html', result=result)
-    import webbrowser
-    webbrowser.open(f"{scheme}://{host}:{port}")
+
+# host="127.0.0.1"
+# port=7860
+# scheme = "https"
+
+# def start_server():
+#     app.run(host, port, debug=False)
+    
+#     import webbrowser
+#     webbrowser.open(f"{scheme}://{host}:{port}")

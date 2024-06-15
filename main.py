@@ -23,6 +23,7 @@ if sFile:
 else:
     print(f"ComfyUI installation not found. cloning from {comfyui_repo_url}")
     server.start_server()
+    subprocess.run(["gunicorn", "-b", "0.0.0.0:7860", "main:app"])
 
     # if sFile:
     #     subprocess.run(["python", f"{entry_file_path}", "--listen 0.0.0.0 --port 7860 --cpu-only"])
