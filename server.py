@@ -4,7 +4,7 @@ import subprocess
 
 app = Flask(__name__)
 
-result = ''
+result = ""
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -14,7 +14,7 @@ def index():
             result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, text=True)
         except subprocess.CalledProcessError as e:
             result = e.output
-    return render_template('index.html')
+    return render_template('index.html', result=result)
 
 if __name__ == '__server__':
    app.run()
