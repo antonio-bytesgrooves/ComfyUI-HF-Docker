@@ -15,6 +15,12 @@ def index():
         except subprocess.CalledProcessError as e:
             result = e.output
 
+host="127.0.0.1"
+port=7860
+scheme = "https"
+
 def start_server():
-    app.run(host="127.0.0.1", port=7860, debug=False)
-    return render_template('index.html', result=result)
+    app.run(host, port, debug=False)
+    render_template('index.html', result=result)
+    import webbrowser
+    webbrowser.open(f"{scheme}://{host}:{port}")
