@@ -4,17 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Command Executor</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        .form-control {
+            background-color: #343a40;
+            color: #ffffff;
+            border: 1px solid #444;
+        }
+        .btn {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        .btn:hover {
+            background-color: #495057;
+        }
+        .result-header {
+            background-color: #343a40;
+            color: #ffdd57;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        textarea {
+            width: 100%;
+            margin-top: 10px;
+            background-color: #343a40;
+            color: #ffffff;
+            border: 1px solid #444;
+            resize: none;
+        }
+    </style>
 </head>
-<body>
-    <h1>Command Executor</h1>
-    <form id="commandForm">
-        <input type="text" id="commandInput" name="command" placeholder="Enter command" required>
-        <button type="submit">Execute</button>
-    </form>
-    <h2>Result:</h2>
-    <textarea id="output" rows="400" cols="150" readonly></textarea>
+<body data-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">CMD</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Items</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">New</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <div class="theme-toggle nav-link">
+                        <i id="theme-icon" class="fas fa-moon"></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
+    <div class="container form-container">
+        <h4 class="text-warning">Command input</h4>
+        <form id="commandForm">
+            <div class="input-group mb-3">
+                <input type="text" id="commandInput" name="command" class="form-control" placeholder="Enter command here..." required>
+                <div class="input-group-append">
+                    <button class="btn btn-secondary" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+        <div class="result-header">Results</div>
+        <textarea id="output" rows="10" readonly></textarea>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Socket.IO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
     <script>
         const socket = io();
 
@@ -34,6 +113,19 @@
         window.onload = function() {
             document.getElementById('commandInput').focus();
         }
+
+        // Theme toggle functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        themeToggle.addEventListener('click', () => {
+            if (document.body.dataset.theme === 'dark') {
+                document.body.dataset.theme = '';
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                document.body.dataset.theme = 'dark';
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
     </script>
 </body>
 </html>
