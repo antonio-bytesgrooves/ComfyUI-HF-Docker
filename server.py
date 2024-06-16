@@ -4,7 +4,7 @@ import subprocess
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
+app.config['SECRET_KEY'] = 'Tfnaw[oijc[092ruj2aaaaaaaaU0N7EZ4B0ftir7m9rO$(!#^*$(!^#_$^#(R*^B@*Y3rn8gf98'
 socketio = SocketIO(app)
 
 @app.route('/')
