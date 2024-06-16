@@ -4,16 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Command Executor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
 </head>
 <body>
     <h1>Command Executor</h1>
-    <form method="post">
-        <input type="text" name="command" placeholder="Enter command" required>
+    <form id="commandForm">
+        <input type="text" id="commandInput" name="command" placeholder="Enter command" required>
         <button type="submit">Execute</button>
     </form>
-    {% if result %}
     <h2>Result:</h2>
-    <pre>{{ result }}</pre>
-    {% endif %}
+    <textarea id="output" rows="400" cols="150" readonly></textarea>
+
+    <script>
+        const socket = io();
+
+        document.getElementById('commandForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const command = document.getElementById('commandInput').value;
+            socket.emit('execute_command', { command: command });
+            document.getElementById('output').value = ''; // Clear previous output
+        });
+
+        socket.on('command_output', function(data) {
+            const outputElement = document.getElementById('output');
+            outputElement.value += data.output;
+            outputElement.scrollTop = outputElement.scrollHeight; // Scroll to the bottom
+        });
+
+        window.onload = function() {
+            document.getElementById('commandInput').focus();
+        }
+    </script>
 </body>
 </html>
