@@ -19,6 +19,7 @@ sFile = os.path.isfile(entry_file_path)
 
 if sFile:
     print("Starting ComfyUI...")
+    os.system("pip install -r /data/app/requirement.txt")
     os.system("python /data/app/main.py --listen 0.0.0.0 --port 7860 --cpu")
 else:
     print(f"ComfyUI installation not found. cloning from {comfyui_repo_url}")
