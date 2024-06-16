@@ -11,7 +11,7 @@ comfyui_install_path = "/data/app"
 
 entry_file_path = os.path.join(comfyui_install_path,"main.py")
 custom_nodes_path = os.path.join(comfyui_install_path,"custom_nodes")
-requirements_file_path = os.path.join(comfyui_install_path,"requirement.txt")
+requirements_file_path = os.path.join(comfyui_install_path,"requirements.txt")
 
 # ComfyUI Github repository url 
 comfyui_repo_url = "https://github.com/comfyanonymous/ComfyUI.git"
