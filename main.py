@@ -23,6 +23,7 @@ if sFile:
 else:
     print(f"ComfyUI installation not found. cloning from {comfyui_repo_url}")
     #subprocess.run("waitress-serve","--host=0.0.0.0","--listen=0.0.0.0:7860","--ident=ComfyUI-SV1")
+    os.system("pip install -r /data/app/requirements.txt")
     os.system("python /data/app/main.py --listen 0.0.0.0 --port 7860 --cpu")
     #server.start_server()
     #subprocess.run(["gunicorn", "-b", "0.0.0.0:7860", "main:app"])
