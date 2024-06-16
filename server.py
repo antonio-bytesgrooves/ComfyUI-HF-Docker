@@ -20,7 +20,7 @@ def create_app():
         for line in iter(process.stdout.readline, ''):
             emit('command_output', {'output': line.strip()})  # Emit each line of output
 
-        process.stdout.close()
+        #process.stdout.close()
         process.wait()
 
     #return app, socketio
