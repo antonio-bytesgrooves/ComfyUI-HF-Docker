@@ -46,6 +46,16 @@
             border: 1px solid #444;
             resize: none;
         }
+        /* CSS to style the terminal output */
+        #output {
+            background-color: #000;
+            color: #0f0;
+            padding: 10px;
+            font-family: monospace;
+            white-space: pre; /* Preserve whitespace */
+            height: 400px;
+            overflow-y: scroll;
+        }
     </style>
 </head>
 <body data-theme="dark">
@@ -105,9 +115,9 @@
         });
 
         socket.on('command_output', function(data) {
-            const outputElement = document.getElementById('output');
-            outputElement.value += data.output;
-            outputElement.scrollTop = outputElement.scrollHeight; // Scroll to the bottom
+            var terminal = document.getElementById('output');
+            terminal.textContent += data.output + '\n'; // Append new output with a line break
+            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
         });
 
         window.onload = function() {
