@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
 import subprocess
+import os
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'Tfnaw[oijc[092ruj2aaaaaaaaU0N7EZ4B0ftir7m9rO$(!#^*$(!^#_$^#(R*^B@*Y3rn8gf98'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_secret_key')
 socketio = SocketIO(app)
 
 @app.route('/')
