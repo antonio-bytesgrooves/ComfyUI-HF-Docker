@@ -9,12 +9,47 @@
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
+        :root {
+            --background-color: #121212; /* Dark theme background color */
+            --text-color: #ffffff; /* Dark theme text color */
+
+            --console-background: #000;
+            --console-forecolor: #0f0;
+
+            --info-background: #2c2c2c;
+            --info-forecolor: #0f0;
+
+            --label-background: #2a2b2e;
+            --label-forecolor: #c7c5c5;
+
+            --header-forecolor: #eed708;
         }
+
+        body.light-theme {
+            --background-color: #ffffff; /* Light theme background color */
+            --text-color: #121212; /* Light theme text color */
+
+            --console-background: #ffffff;
+            --console-forecolor: rgb(17, 34, 179);
+
+            --info-background: #1149e4;
+            --info-forecolor: #ffffff;
+
+            --label-background: #9da1a7;
+            --label-forecolor: #131111;
+
+            --header-forecolor: #e05d10;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            align-content: flex-start;
+        }
+
         .navbar-dark .navbar-nav .nav-link {
             color: rgba(255, 255, 255, 0.9);
+            font-family: monospace;
         }
         .form-container {
             margin-top: 20px;
@@ -27,16 +62,18 @@
         .btn {
             background-color: #343a40;
             color: #ffffff;
+            font-family: monospace;
         }
         .btn:hover {
             background-color: #495057;
         }
         .result-header {
-            background-color: #343a40;
-            color: #ffdd57;
-            padding: 10px;
+            background-color: var(--label-background);
+            color: var(--label-forecolor);
+            padding: 2px;
             border-radius: 5px;
             margin-top: 20px;
+            font-family: monospace;
         }
         textarea {
             width: 100%;
@@ -46,56 +83,110 @@
             border: 1px solid #444;
             resize: none;
         }
-        /* CSS to style the terminal output */
+
         #output {
-            background-color: #000;
-            color: #0f0;
+            background-color: var(--console-background);
+            color: var(--console-forecolor);
             padding: 10px;
+            font-size: 17px;
             font-family: monospace;
             white-space: pre; /* Preserve whitespace */
-            height: 400px;
-            overflow-y: scroll;
+            height: 80%;
+            min-height: calc(100vh - 220px); /* Adjust 220px to accommodate navbar and other heights */
+            overflow-y: auto;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        #osInfo{
+            background-color: var(--info-background);
+            color: var(--info-forecolor);
+            padding: 10px;
+            font-size: 15px;
+            font-family: monospace;
+            white-space: pre; /* Preserve whitespace */
+            height: 80%;
+            min-height: calc(100vh - 220px); /* Adjust 220px to accommodate navbar and other heights */
+            overflow-y: auto;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        #commandInput{
+            background-color: var(--console-background);
+            color: var(--console-forecolor);
+            padding: 10px;
+            font-family: monospace;
+            font-weight: 500;
+            font-size: 17px;
+        }
+        #inputLabel{
+            font-family: monospace;
+            font-size: x-large;
+            color: var(--header-forecolor);
+        }
+        #inputInfoLabel{
+            font-family: monospace;
+            font-size: x-large;
+            color: var(--header-forecolor);
+            margin-top: 17px;
+        }
+        #console-form{
+            margin-top: 15px;
+        }
+        #console-info{
+            margin-top: 15px;
+        }
+        #titleLeft{
+            font-family: monospace;
         }
     </style>
 </head>
 <body data-theme="dark">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">CMD</a>
+        <a id="titleLeft" class="navbar-brand" href="#">Legionman's terminal utility</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Items</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">New</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Settings</a>
-                </li>
-                <li class="nav-item">
-                    <div class="theme-toggle nav-link">
-                        <i id="theme-icon" class="fas fa-moon"></i>
-                    </div>
+                    <div id="theme-toggle" onclick="toggleTheme()" class="btn btn-sm btn-dark"><i class="fa fa-moon"></i></div>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="container form-container">
-        <h4 class="text-warning">Command input</h4>
-        <form id="commandForm">
-            <div class="input-group mb-3">
-                <input type="text" id="commandInput" name="command" class="form-control" placeholder="Enter command here..." required>
-                <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit">Submit</button>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8" id="console-form">
+                <h4 id="inputLabel">Terminal input</h4>
+                <form id="commandForm">
+                    <div class="input-group mb-3">
+                        <input type="text" id="commandInput" name="command" class="form-control text-md-left" placeholder="Enter command here..." required>
+                        <div class="input-group-append">
+                            <button class="btn btn-md btn-warning" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="result-header">Output console</div>
+                <textarea id="output" rows="10" readonly></textarea>
             </div>
-        </form>
-        <div class="result-header">Results</div>
-        <textarea id="output" rows="10" readonly></textarea>
+            <form class="col-xl-4" id="consoleinfo">
+                <h4 id="inputInfoLabel">OS Information</h4>
+                <div id="btnGroupRight" class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                      <button type="submit" class="system btn btn-md btn-warning">System</button>
+                    </div>
+                    <div class="btn-group">
+                      <button type="submit" class="hardware btn btn-md btn-warning">Hardware</button>
+                    </div>
+                    <div class="btn-group">
+                      <button type="submit" class="storage btn btn-md btn-warning">Storage</button>
+                    </div>
+                  </div>
+                <div class="result-header" id="systemName">System Name</div>
+                <textarea id="osInfo" rows="10" readonly></textarea>
+            </form>
+        </div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
@@ -107,6 +198,26 @@
     <script>
         const socket = io();
 
+        document.getElementById('consoleinfo').addEventListener('submit', function(e) {
+            cmd = '';
+            if(e.submitter.textContent == 'System')
+            {
+                cmd = 'lscpu';
+            }
+            if(e.submitter.textContent == 'Storage')
+            {
+                cmd = 'lsblk -a';
+            }
+            if(e.submitter.textContent == 'Hardware')
+            {
+                cmd = 'lshw';
+            }
+            e.preventDefault();
+            const command = cmd;
+            socket.emit('system_command', { command: command });
+            document.getElementById('osInfo').value = ''; // Clear previous output
+        });
+
         document.getElementById('commandForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const command = document.getElementById('commandInput').value;
@@ -115,27 +226,55 @@
         });
 
         socket.on('command_output', function(data) {
-            var terminal = document.getElementById('output');
-            terminal.textContent += data.output + '\n'; // Append new output with a line break
-            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
+            const outputElement = document.getElementById('output');
+            outputElement.value += data.output + '\n';
+            outputElement.scrollTop = outputElement.scrollHeight; // Scroll to the bottom
         });
+
+        socket.on('system_output', function(data) {
+            const outputElement = document.getElementById('osInfo');
+            outputElement.value += data.output + '\n';
+            outputElement.scrollTop = outputElement.scrollHeight; // Scroll to the bottom
+        });
+
+        
+        // function adjustOutputHeight() {
+        //     if(offsetHeight != null)
+        //     {
+        //         const navbarHeight = document.querySelector('.navbar').offsetHeight;
+        //         const containerHeight = document.querySelector('.form-container').offsetHeight;
+        //         const remainingHeight = window.innerHeight - (navbarHeight + containerHeight + 40); // Adjust 40px for padding and margins
+
+        //         document.getElementById('output').style.minHeight = remainingHeight + 'px';
+        //         document.getElementById('osInfo').style.minHeight = remainingHeight + 'px';
+        //     }
+        // }
+
+        // window.addEventListener('resize', adjustOutputHeight);
+        // adjustOutputHeight(); // Call initially
 
         window.onload = function() {
             document.getElementById('commandInput').focus();
         }
 
-        // Theme toggle functionality
-        const themeToggle = document.querySelector('.theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        themeToggle.addEventListener('click', () => {
-            if (document.body.dataset.theme === 'dark') {
-                document.body.dataset.theme = '';
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-            } else {
-                document.body.dataset.theme = 'dark';
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-            }
-        });
+        // Function to toggle between light and dark themes
+        function toggleTheme() {
+        const body = document.body;
+        body.classList.toggle('light-theme');
+        
+        // Save the theme preference to localStorage
+        const theme = body.classList.contains('light-theme') ? 'light' : 'dark';
+        localStorage.setItem('theme', theme);
+        }
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+        document.body.classList.toggle(savedTheme + '-theme');
+        } else {
+        // Default to dark theme if no preference is set
+        document.body.classList.add('dark-theme');
+        }
     </script>
 </body>
 </html>
