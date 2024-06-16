@@ -4,10 +4,10 @@ import subprocess
 
 app = Flask(__name__)
 
-result = ""
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    result = ''
     if request.method == 'POST':
         command = request.form['command']
         try:
