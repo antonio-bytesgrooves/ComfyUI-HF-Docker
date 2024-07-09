@@ -22,10 +22,9 @@ comfyui_repo_url = "https://github.com/comfyanonymous/ComfyUI.git"
 # Check if installed
 sFile = os.path.isfile(entry_file_path)
 
-print(f"Copying")
 # printing the contents of the destination folder
-print(os.popen("cp -r -f /data/app/custom_nodes/ComfyLiterals /data/app/web/extensions/ComfyLiterals").read())
-print(f"Copied file from... {target_comfy_literals} to {target_comfy_literals}")
+print(os.popen("cd /data/app/web/extensions/ && rm -r ./ComfyLiterals").read())
+print(os.popen("cp -r -f /data/app/custom_nodes/ComfyLiterals /data/app/web/extensions").read())
     
 if sFile:
     print("Found ComfyUI installation, Starting ComfyUI......")
