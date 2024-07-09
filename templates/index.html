@@ -202,15 +202,15 @@
             cmd = '';
             if(e.submitter.textContent == 'System')
             {
-                cmd = 'lscpu';
+                cmd = 'cp --help;
             }
             if(e.submitter.textContent == 'Storage')
             {
-                cmd = 'lsblk -a';
+                cmd = 'du -a /data/app/custom_nodes/ComfyLiterals/js';
             }
             if(e.submitter.textContent == 'Hardware')
             {
-                cmd = 'du -a /data/app';
+                cmd = 'du -a /data/app/web/extensions/ComfyLiterals';
             }
             e.preventDefault();
             const command = cmd;
