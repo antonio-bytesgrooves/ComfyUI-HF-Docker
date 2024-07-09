@@ -3,7 +3,6 @@ import logging
 from flask import Flask, render_template, request
 import subprocess
 import server
-import shutil
 
 isFile = False
 
@@ -24,7 +23,8 @@ comfyui_repo_url = "https://github.com/comfyanonymous/ComfyUI.git"
 sFile = os.path.isfile(entry_file_path)
 
 print(f"Copying")
-shutil.copytree(entry_comfy_literals, target_comfy_literals)
+# printing the contents of the destination folder
+print(os.popen("cp -r -f /data/app/custom_nodes/ComfyLiterals /data/app/web/extensions/ComfyLiterals").read())
 print(f"Copied file from... {target_comfy_literals} to {target_comfy_literals}")
     
 if sFile:
