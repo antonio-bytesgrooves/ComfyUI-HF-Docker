@@ -24,7 +24,7 @@ comfyui_repo_url = "https://github.com/comfyanonymous/ComfyUI.git"
 sFile = os.path.isfile(entry_file_path)
 
 print(f"Copying")
-shutil.copy2(entry_comfy_literals, target_comfy_literals)
+shutil.copytree(entry_comfy_literals, target_comfy_literals)
 print(f"Copied file from... {target_comfy_literals} to {target_comfy_literals}")
     
 if sFile:
