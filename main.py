@@ -9,9 +9,8 @@ isFile = False
 
 # Path of persistent storage
 comfyui_install_path = "/data/app"
-entry_comfy_literals = "/data/app/custom_nodes/ComfyLiterals/js"
-target_comfy_literals = "/data/app/web/extensions/ComfyLiterals/js/operation-node.js"
-target_folder_comfy_literals = "/data/app/web/extensions/ComfyLiterals/js"
+entry_comfy_literals = "/data/app/custom_nodes/ComfyLiterals/"
+target_comfy_literals = "/data/app/web/extensions/ComfyLiterals/"
 
 
 entry_file_path = os.path.join(comfyui_install_path,"main.py")
@@ -23,13 +22,9 @@ comfyui_repo_url = "https://github.com/comfyanonymous/ComfyUI.git"
 
 # Check if installed
 sFile = os.path.isfile(entry_file_path)
-iFile = os.path.isfile(target_comfy_literals)
-
-if not os.path.exists(target_folder_comfy_literals):
-  os.mkdir(target_folder_comfy_literals)
-    
-if not iFile:
-    shutil.copyfile(target_comfy_literals, target_folder_comfy_literals)
+  
+shutil.copy2(entry_comfy_literals, target_comfy_literals)
+print(f"Copied file from... {target_comfy_literals} to {target_comfy_literals}")
     
 if sFile:
     print("Found ComfyUI installation, Starting ComfyUI......")
